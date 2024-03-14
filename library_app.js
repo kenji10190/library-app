@@ -5,13 +5,16 @@ const config = {
     searchInputId: "isbn-search",
 }
 
+// button要素のIDを取得
 let searchBtn = document.getElementById(config.searchBtnId);
+// ボタンを押下したときの挙動を設定
 searchBtn.addEventListener("click", function(){
+    // htmlに挿入する予定の文字列変数
     const bookCards = document.getElementById(config.parentId);
-
+    // input要素のIDを取得し、ユーザーの入力データを変数に格納
     let isbn = document.getElementById(config.searchInputId).value;
+    
     fetch(config.url + isbn).then(response=>response.json()).then(function(data){
-        console.log(data);
 
         if (Object.keys(data).length === 0) bookCards.innerHTML = `<h2>Not Found</h2>`;
         else {
