@@ -15,7 +15,7 @@ searchBtn.addEventListener("click", function(){
     let isbn = document.getElementById(config.searchInputId).value;
     
     fetch(config.url + isbn).then(response=>response.json()).then(function(data){
-
+        console.log(data);
         if (Object.keys(data).length === 0) bookCards.innerHTML = `<h2>Not Found</h2>`;
         else {
             for (book in data){
@@ -50,7 +50,7 @@ function generateBookCard(book){
                         <td>${book.number_of_pages}</td>
                     </tr>
                     <tr>
-                        <th scope="row">Publisher</th>
+                        <th scope="row">Author</th>
                         <td>${parseDataOL(book.authors)}</td>
                     </tr>
                     <tr>
@@ -58,8 +58,16 @@ function generateBookCard(book){
                         <td>${book.publish_date}</td>
                     </tr>
                     <tr>
-                        <th scope="row">Categories</th>
-                        <td>${parseDataOL(book.subjects)}</td>
+                        <th scope="row">Publish Place</th>
+                        <td>${parseDataOL(book.publish_places)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Publisher</th>
+                        <td>${parseDataOL(book.publishers)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Book Excerpt</th>
+                        <td>${book.excerpts && book.excerpts[0] ? book.excerpts[0].text : "None"}</td>
                     </tr>
                     </tbody>
                 </table>
